@@ -44,35 +44,6 @@ async function run() {
             res.json(result); //response in json format of result
         })
 
-        // get single location
-        app.get('/package/:id', async (req, res) => {
-            const id = req.params.id;
-            console.log('location with id: ', id);
-            const query = { _id: ObjectId(id) };
-            const service = await tourPlace.findOne(query);
-            res.json(service);
-        })
-
-        // get multiple package for user "my order" panel
-        app.post('/location/allLocation', async (req, res) => {
-            const keys = req.body;
-            console.log(keys);
-            // const query = { _id: { $in: ObjectId(id) } }
-            const query = { key: { $in: keys } }
-            console.log(" RUNNING", query);
-            const locations = await tourPlace.find(query).toArray();
-            res.send(locations);
-            // console.log(locations);
-        });
-
-        // post individual order after confirm their order
-        app.post('/order', async (req, res) => {
-            const packageConfirm = req.body;
-
-            const result = await placedOrder.insertOne(packageConfirm);
-            res.json(result); //response in json format of result
-        })
-
 
     } finally {
         //   await client.close();
